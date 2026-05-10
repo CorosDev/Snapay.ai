@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snapay — Pagos sin fricción para restaurantes</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--purple:#4F3FE8;
+--purple-dark:#3B2DB5;
+--purple-light:#EEF0FF;
+--purple-mid:#7B6FF0;
+--green:#22C55E;
+--green-light:#DCFCE7;
+--cyan:#06B6D4;
+--white:#FFFFFF;
+--bg:#F8F8FB;
+--bg2:#F0EFF8;
+--ink:#111827;
+--ink2:#374151;
+--ink3:#6B7280;
+--ink4:#9CA3AF;
+--border:#E5E7EB;
+--border2:#D1D5DB;
+--shadow-sm:0 1px 3px rgba(0,0,0,0.07);
+--shadow:0 4px 16px rgba(79,63,232,0.1),0 1px 4px rgba(0,0,0,0.05);
+--shadow-md:0 8px 32px rgba(79,63,232,0.12),0 2px 8px rgba(0,0,0,0.06);
+--shadow-lg:0 24px 64px rgba(79,63,232,0.15),0 8px 24px rgba(0,0,0,0.08);
+--font:'Plus Jakarta Sans',system-ui,sans-serif;
+--r:10px;--r-lg:18px;--r-xl:24px;--r-2xl:32px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(248,248,251,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:36px;height:36px;background:var(--purple);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-icon svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
+.logo-text{font-weight:800;font-size:1.1rem;color:var(--ink);letter-spacing:-0.03em}
+.logo-text span{color:var(--purple)}
+nav ul{list-style:none;display:flex;gap:2.5rem}
+nav ul a{font-size:0.875rem;font-weight:500;color:var(--ink3);text-decoration:none;transition:color 0.15s}
+nav ul a:hover{color:var(--ink)}
+.nav-cta{background:var(--purple);color:#fff;padding:0.55rem 1.35rem;border-radius:100px;font-size:0.85rem;font-weight:700;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 12px rgba(79,63,232,0.3)}
+.nav-cta:hover{background:var(--purple-dark);transform:translateY(-1px)}
+.hero{padding:9rem 3rem 5rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--purple-light);border:1px solid rgba(79,63,232,0.2);padding:5px 14px;border-radius:100px;font-size:0.72rem;font-weight:700;color:var(--purple);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:1.75rem}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-size:clamp(2.8rem,5vw,4rem);font-weight:800;line-height:1.06;letter-spacing:-0.04em;color:var(--ink);margin-bottom:1.5rem}
+h1 .hi{color:var(--purple)}
+.hero-desc{font-size:1.05rem;color:var(--ink3);line-height:1.75;max-width:440px;margin-bottom:2.5rem}
+.hero-actions{display:flex;align-items:center;gap:1rem;margin-bottom:3rem;flex-wrap:wrap}
+.btn-primary{background:var(--purple);color:#fff;padding:0.85rem 2rem;border-radius:100px;font-size:0.9rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s;letter-spacing:-0.01em;box-shadow:0 6px 20px rgba(79,63,232,0.35)}
+.btn-primary:hover{background:var(--purple-dark);transform:translateY(-2px)}
+.btn-primary svg{width:16px;height:16px;stroke:#fff;stroke-width:2.5;fill:none}
+.btn-ghost{color:var(--ink2);padding:0.85rem 1.75rem;border-radius:100px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1.5px solid var(--border2);background:var(--white);transition:all 0.2s}
+.btn-ghost:hover{border-color:var(--purple);color:var(--purple)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.stat-cell{background:var(--white);padding:1.25rem 1rem;text-align:center}
+.stat-n{font-size:1.8rem;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-0.04em}
+.stat-n.green{color:var(--green)}.stat-n.purple{color:var(--purple)}
+.stat-l{font-size:0.68rem;color:var(--ink4);margin-top:5px;font-weight:500;text-transform:uppercase;letter-spacing:0.04em}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.phone{width:260px;background:var(--white);border-radius:36px;box-shadow:var(--shadow-lg);overflow:hidden;border:1px solid rgba(79,63,232,0.1)}
+.phone-header{background:var(--purple);padding:1.1rem 1.25rem 1.4rem;display:flex;align-items:center;justify-content:space-between}
+.ph-restaurant{color:#fff;font-weight:700;font-size:0.95rem;letter-spacing:-0.02em}
+.ph-dots{display:flex;flex-direction:column;gap:2.5px}
+.ph-dots span{width:4px;height:4px;background:rgba(255,255,255,0.7);border-radius:50%;display:block}
+.phone-body{background:var(--white);border-radius:24px 24px 0 0;margin-top:-12px;padding:1.25rem;position:relative;z-index:2}
+.pb-title{text-align:center;font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.pb-toggle{display:flex;background:var(--bg);border-radius:100px;padding:3px;margin-bottom:1.1rem}
+.pb-tab{flex:1;text-align:center;padding:5px;border-radius:100px;font-size:0.65rem;font-weight:600;color:var(--ink3)}
+.pb-tab.active{background:var(--ink);color:#fff}
+.pb-item{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bg)}
+.pb-item:last-of-type{border-bottom:none}
+.pb-item-name{font-size:0.75rem;font-weight:600;color:var(--ink)}
+.pb-badge{background:var(--bg2);color:var(--ink3);font-size:0.55rem;padding:1px 6px;border-radius:100px;font-weight:600;margin-left:4px}
+.pb-item-sub{font-size:0.62rem;color:var(--ink4);margin-top:1px}
+.pb-item-price{font-size:0.78rem;font-weight:700;color:var(--ink)}
+.pb-divider{height:1px;background:var(--border);margin:10px 0}
+.pb-row{display:flex;justify-content:space-between;padding:3px 0;font-size:0.68rem;color:var(--ink3)}
+.pb-total{display:flex;justify-content:space-between;padding:6px 0 0;font-size:0.78rem;font-weight:700;color:var(--ink);border-top:1px solid var(--border);margin-top:3px}
+.phone-btn{background:var(--purple);color:#fff;border:none;border-radius:100px;padding:12px;font-size:0.78rem;font-weight:700;font-family:var(--font);width:100%;margin-top:1rem;cursor:pointer;box-shadow:0 4px 12px rgba(79,63,232,0.3)}
+.chip{position:absolute;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:10px;z-index:3}
+.chip-tr{top:5%;right:-12%;animation:fa 5s ease-in-out infinite}
+.chip-bl{bottom:10%;left:-14%;animation:fb 6s ease-in-out infinite}
+@keyframes fa{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fb{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+.chip-ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chip-ico.p{background:var(--purple-light)}.chip-ico.g{background:var(--green-light)}
+.chip-ico svg{width:16px;height:16px;fill:none;stroke-width:2}
+.chip-ico.p svg{stroke:var(--purple)}.chip-ico.g svg{stroke:var(--green)}
+.chip-val{font-size:0.82rem;font-weight:700;color:var(--ink)}.chip-sub{font-size:0.62rem;color:var(--ink4);margin-top:1px}
+.logos{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 3rem}
+.logos-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.logos-label{font-size:0.65rem;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap;margin-right:0.5rem}
+.logos-div{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.partner{font-size:0.82rem;font-weight:600;color:var(--ink4);cursor:default;white-space:nowrap;transition:color 0.15s}
+.partner:hover{color:var(--ink2)}
+.label{font-size:0.68rem;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.85rem}
+.section-h{font-size:clamp(2rem,3.5vw,2.8rem);font-weight:800;color:var(--ink);line-height:1.1;letter-spacing:-0.04em;margin-bottom:0.75rem}
+.section-sub{font-size:0.98rem;color:var(--ink3);line-height:1.75;max-width:500px}
+.how{padding:7rem 3rem;max-width:1200px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem}
+.step{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:2rem;transition:all 0.25s;position:relative;overflow:hidden}
+.step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--purple-mid));transform:scaleX(0);transform-origin:left;transition:transform 0.35s}
+.step:hover{box-shadow:var(--shadow-md);transform:translateY(-4px)}.step:hover::before{transform:scaleX(1)}
+.step-num{font-size:0.65rem;font-weight:700;color:var(--ink4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.step-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.step-icon svg{width:22px;height:22px;fill:none;stroke-width:1.75}
+.si-p{background:var(--purple-light)}.si-p svg{stroke:var(--purple)}
+.si-c{background:#E0F9FF}.si-c svg{stroke:var(--cyan)}
+.si-g{background:var(--green-light)}.si-g svg{stroke:var(--green)}
+.step-h{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:0.5rem;letter-spacing:-0.02em}
+.step-p{font-size:0.85rem;color:var(--ink3);line-height:1.7}
+.features{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:7rem 3rem}
+.feat-inner{max-width:1200px;margin:0 auto}
+.feat-top{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem}
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.fc{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-xl);padding:2rem;transition:all 0.25s}
+.fc:hover{background:var(--white);box-shadow:var(--shadow-md);border-color:rgba(79,63,232,0.2)}
+.fc.dark{background:var(--purple);border-color:var(--purple)}
+.fc.dark .fc-tag{background:rgba(255,255,255,0.15);color:#fff;border-color:rgba(255,255,255,0.2)}
+.fc.dark .fc-h,.fc.dark .fc-big{color:#fff}
+.fc.dark .fc-p,.fc.dark .fc-big-sub{color:rgba(255,255,255,0.7)}
+.fc-tag{display:inline-flex;align-items:center;background:var(--purple-light);border:1px solid rgba(79,63,232,0.2);padding:3px 10px;border-radius:100px;font-size:0.62rem;font-weight:700;color:var(--purple);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:1.25rem}
+.fc-h{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:0.5rem;letter-spacing:-0.02em}
+.fc-p{font-size:0.85rem;color:var(--ink3);line-height:1.7}
+.fc-big{font-size:3rem;font-weight:800;color:var(--purple);line-height:1;margin-top:1.5rem;letter-spacing:-0.05em}
+.fc-big-sub{font-size:0.68rem;color:var(--ink3);margin-top:4px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600}
+/* PAYMENT OPTIONS SECTION */
+.options-section{padding:7rem 3rem;max-width:1200px;margin:0 auto}
+.options-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.options-list{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem}
+.opt-row{display:flex;align-items:center;gap:14px;padding:1.1rem 1.25rem;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);transition:all 0.2s;cursor:default}
+.opt-row:hover{border-color:rgba(79,63,232,0.3);box-shadow:var(--shadow)}
+.opt-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt-icon svg{width:18px;height:18px;fill:none;stroke-width:2}
+.oi1{background:var(--purple-light)}.oi1 svg{stroke:var(--purple)}
+.oi2{background:#E0F9FF}.oi2 svg{stroke:var(--cyan)}
+.oi3{background:rgba(168,85,247,0.12)}.oi3 svg{stroke:#A855F7}
+.oi4{background:rgba(249,115,22,0.12)}.oi4 svg{stroke:#F97316}
+.opt-name{font-size:0.875rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em}
+.opt-sub{font-size:0.75rem;color:var(--ink4);margin-top:1px}
+/* DUAL PHONES */
+.dual-phones{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.mini-phone{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.mp-h{background:var(--purple);padding:0.7rem 0.9rem;display:flex;align-items:center;justify-content:space-between}
+.mp-h.success{background:linear-gradient(135deg,#059669,#10B981)}
+.mp-hn{color:#fff;font-size:0.65rem;font-weight:700}
+.mp-hd{display:flex;flex-direction:column;gap:2px}
+.mp-hd span{width:3px;height:3px;background:rgba(255,255,255,0.6);border-radius:50%;display:block}
+.mp-body{padding:0.85rem;background:var(--white);border-radius:14px 14px 0 0;margin-top:-8px;position:relative;z-index:2}
+.mp-opt{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;margin-bottom:6px;border:1.5px solid var(--border);background:var(--bg)}
+.mp-opt.active{border-color:var(--purple);background:var(--purple-light)}
+.mp-opt:last-child{margin-bottom:0}
+.mp-oi{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mp-oi svg{width:13px;height:13px;fill:none;stroke-width:2}
+.moi1{background:rgba(79,63,232,0.15)}.moi1 svg{stroke:var(--purple)}
+.moi2{background:rgba(6,182,212,0.15)}.moi2 svg{stroke:var(--cyan)}
+.moi3{background:rgba(168,85,247,0.15)}.moi3 svg{stroke:#A855F7}
+.moi4{background:rgba(249,115,22,0.15)}.moi4 svg{stroke:#F97316}
+.mp-oname{font-size:0.62rem;font-weight:700;color:var(--ink);letter-spacing:-0.01em}
+.mp-osub{font-size:0.55rem;color:var(--ink4)}
+.mp-btn{background:var(--purple);color:#fff;border:none;border-radius:100px;padding:9px;font-size:0.65rem;font-weight:700;font-family:var(--font);width:100%;margin-top:0.6rem;cursor:pointer}
+.mp-success-body{padding:1rem;text-align:center}
+.mp-check{width:40px;height:40px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem}
+.mp-check svg{width:20px;height:20px;stroke:var(--green);stroke-width:2.5;fill:none}
+.mp-st{font-size:0.78rem;font-weight:800;color:var(--green);margin-bottom:2px}
+.mp-ss{font-size:0.62rem;color:var(--ink3)}
+.mp-receipt{padding:0.75rem;font-size:0.62rem}
+.mp-rr{display:flex;justify-content:space-between;padding:3px 0;color:var(--ink3)}
+.mp-rt{display:flex;justify-content:space-between;padding:5px 0;font-weight:800;color:var(--ink);font-size:0.68rem;border-top:1px solid var(--border);margin-top:3px}
+.mp-dl{background:linear-gradient(135deg,#059669,#10B981);color:#fff;border:none;border-radius:100px;padding:9px;font-size:0.65rem;font-weight:700;font-family:var(--font);width:100%;cursor:pointer;margin:0 0.75rem;width:calc(100% - 1.5rem);margin-bottom:0.75rem}
+/* PRICING */
+.pricing{padding:7rem 3rem;max-width:1200px;margin:0 auto}
+.pricing-head{text-align:center;margin-bottom:4rem}
+.pricing-head .section-sub{margin:0 auto;text-align:center}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.tier{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2rem;transition:all 0.25s;display:flex;flex-direction:column}
+.tier:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.tier.popular{background:var(--purple);border-color:var(--purple)}
+.tier-pop{display:inline-flex;background:rgba(255,255,255,0.2);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:1.25rem}
+.tier-name{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink4);margin-bottom:0.4rem}
+.tier.popular .tier-name{color:rgba(255,255,255,0.5)}
+.tier-range{font-size:0.72rem;color:var(--ink4);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);line-height:1.45}
+.tier.popular .tier-range{border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.45)}
+.tier-price{font-size:1.9rem;font-weight:800;color:var(--ink);letter-spacing:-0.05em;margin-bottom:2px;line-height:1}
+.tier.popular .tier-price{color:#fff}
+.tier-period{font-size:0.7rem;color:var(--ink4);margin-bottom:1.75rem}
+.tier.popular .tier-period{color:rgba(255,255,255,0.45)}
+.tier-list{list-style:none;display:flex;flex-direction:column;gap:10px;flex:1}
+.tier-list li{font-size:0.8rem;color:var(--ink3);display:flex;align-items:flex-start;gap:9px;line-height:1.4}
+.tier.popular .tier-list li{color:rgba(255,255,255,0.7)}
+.tier-ck{width:16px;height:16px;border-radius:50%;background:var(--purple-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.tier-ck svg{width:8px;height:8px;stroke:var(--purple);stroke-width:2.5;fill:none}
+.tier.popular .tier-ck{background:rgba(255,255,255,0.2)}
+.tier.popular .tier-ck svg{stroke:#fff}
+/* PILOT */
+.pilot{padding:4rem 3rem 7rem;max-width:1200px;margin:0 auto}
+.pilot-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-2xl);overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:var(--shadow-md)}
+.pilot-left{background:linear-gradient(135deg,var(--purple) 0%,#6B5CE7 100%);padding:3.5rem 3rem;display:flex;flex-direction:column;gap:2.5rem;justify-content:space-between;position:relative;overflow:hidden}
+.pilot-left::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;background:rgba(255,255,255,0.06);border-radius:50%}
+.pilot-left::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;background:rgba(255,255,255,0.04);border-radius:50%}
+.pilot-ey{font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem}
+.pilot-h{font-size:2rem;font-weight:800;color:#fff;line-height:1.15;letter-spacing:-0.04em;margin-bottom:0.75rem}
+.pilot-p{font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.75}
+.pilot-cta{background:#fff;color:var(--purple);padding:0.9rem 2rem;border-radius:100px;font-size:0.9rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s;width:fit-content;letter-spacing:-0.02em;position:relative;z-index:1;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
+.pilot-cta:hover{background:var(--bg2);transform:translateY(-2px)}
+.pilot-cta svg{width:16px;height:16px;stroke:var(--purple);stroke-width:2.5;fill:none;transition:transform 0.2s}
+.pilot-cta:hover svg{transform:translateX(3px)}
+.pilot-right{padding:3.5rem 3rem;background:var(--bg);display:flex;flex-direction:column;gap:2rem;justify-content:center}
+.pi{display:flex;gap:1.25rem;align-items:flex-start}
+.pi-ico{width:42px;height:42px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pi-ico svg{width:18px;height:18px;stroke:var(--purple);stroke-width:1.75;fill:none}
+.pi-h{font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:3px;letter-spacing:-0.02em}
+.pi-p{font-size:0.82rem;color:var(--ink3);line-height:1.65}
+footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-weight:800;font-size:0.95rem;color:var(--ink);letter-spacing:-0.03em}
+.footer-logo span{color:var(--purple)}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-size:0.8rem;color:var(--ink4);text-decoration:none;font-weight:500;transition:color 0.15s}
+.footer-links a:hover{color:var(--ink3)}
+.footer-copy{font-size:0.72rem;color:var(--ink4)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.65s,transform 0.65s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}
+@media(max-width:1024px){
+  nav{padding:0 1.5rem}
+  nav ul{display:none}
+  .hero{grid-template-columns:1fr;padding:8rem 1.5rem 4rem;gap:3rem}
+  .hero-visual{justify-content:center;padding:2rem 1rem}
+  .phone{width:220px}
+  .chip-tr{right:-5%;top:-6%}
+  .chip-bl{left:-5%;bottom:-6%}
+  .options-inner{grid-template-columns:1fr}
+  .dual-phones{display:none}
+  .steps{grid-template-columns:1fr}
+  .feat-top{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .tiers{grid-template-columns:1fr 1fr}
+  .pilot-card{grid-template-columns:1fr}
+  .how,.features,.pricing,.options-section,.pilot{padding:5rem 1.5rem}
+  .logos{padding:2rem 1.5rem}
+  footer{padding:2rem 1.5rem}
+}
+@media(max-width:600px){
+  .tiers{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="15.5" y="15.5" width="2" height="2" rx="0.5"/><rect x="19.5" y="15.5" width="2" height="2" rx="0.5"/><rect x="15.5" y="19.5" width="2" height="2" rx="0.5"/><rect x="19.5" y="19.5" width="2" height="2" rx="0.5"/></svg>
+    </div>
+    <span class="logo-text">Sna<span>pay</span></span>
+  </a>
+  <ul>
+    <li><a href="#how">Cómo funciona</a></li>
+    <li><a href="#features">Beneficios</a></li>
+    <li><a href="#pricing">Tarifas</a></li>
+    <li><a href="#pilot">Contacto</a></li>
+  </ul>
+  <a href="https://calendly.com/inversionescyg2024/30min" target="_blank" class="nav-cta">Solicitar piloto gratis</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-badge">Lanzando en Honduras · 2026</div>
+    <h1>Pagar la cuenta<br>nunca fue<br><span class="hi">tan fácil.</span></h1>
+    <p class="hero-desc">Snapay permite a tus clientes ver y pagar su cuenta escaneando un QR desde su celular. Sin terminales. Sin espera. Sin fricción. En segundos.</p>
+    <div class="hero-actions">
+      <a href="https://calendly.com/inversionescyg2024/30min" target="_blank" class="btn-primary">Solicitar piloto gratis <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#how" class="btn-ghost">Ver cómo funciona</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-cell"><div class="stat-n purple">16 min</div><div class="stat-l">ahorrados por mesa</div></div>
+      <div class="stat-cell"><div class="stat-n green">3×</div><div class="stat-l">más propinas digitales</div></div>
+      <div class="stat-cell"><div class="stat-n">L 0</div><div class="stat-l">costo de instalación</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="chip chip-tr">
+      <div class="chip-ico g"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="chip-val">Pago confirmado</div><div class="chip-sub">L 1,115.49 · Mesa 23</div></div>
+    </div>
+    <div class="chip chip-bl">
+      <div class="chip-ico p"><svg viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="chip-val">Propina: L 30.99</div><div class="chip-sub">10% seleccionado</div></div>
+    </div>
+    <div class="phone">
+      <div class="phone-header"><span class="ph-restaurant">Tu Negocio</span><div class="ph-dots"><span></span><span></span><span></span></div></div>
+      <div class="phone-body">
+        <div class="pb-title">Factura — Mesa 23</div>
+        <div class="pb-toggle"><div class="pb-tab active">Factura Pendiente</div><div class="pb-tab">Pagado</div></div>
+        <div class="pb-item"><div><div class="pb-item-name">Margherita Pizza <span class="pb-badge">x2</span></div><div class="pb-item-sub">L150.00 c/u</div></div><div class="pb-item-price">L300.00</div></div>
+        <div class="pb-item"><div><div class="pb-item-name">Diet Coke <span class="pb-badge">x2</span></div><div class="pb-item-sub">L50.00 c/u</div></div><div class="pb-item-price">L100.00</div></div>
+        <div class="pb-item"><div><div class="pb-item-name">Vegetarian Pizza <span class="pb-badge">x1</span></div><div class="pb-item-sub">L320.00 c/u</div></div><div class="pb-item-price">L320.00</div></div>
+        <div class="pb-item"><div><div class="pb-item-name">Chocolate Cake <span class="pb-badge">x4</span></div><div class="pb-item-sub">L140.00 c/u</div></div><div class="pb-item-price">L140.00</div></div>
+        <div class="pb-divider"></div>
+        <div class="pb-row"><span>Subtotal Restante</span><span>L1,030.00</span></div>
+        <div class="pb-row"><span>Impuestos (15%)</span><span>L85.49</span></div>
+        <div class="pb-total"><span>Total Restante</span><span>L1,115.49</span></div>
+        <button class="phone-btn">Método de Pago</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="logos">
+  <div class="logos-inner">
+    <span class="logos-label">Alianzas estratégicas</span>
+    <div class="logos-div"></div>
+    <span class="partner">BAC Credomatic</span>
+    <span class="partner">POS de Honduras</span>
+    <span class="partner">VISA</span>
+    <span class="partner">MasterCard</span>
+    <span class="partner">American Express</span>
+    <span class="partner">Abacre POS</span>
+    <span class="partner">WizPOS</span>
+    <span class="partner">CorosDev</span>
+  </div>
+</div>
+
+<section id="how" class="how">
+  <div class="reveal"><div class="label">Proceso</div><div class="section-h">Simple para el cliente.<br>Poderoso para el negocio.</div></div>
+  <div class="steps">
+    <div class="step reveal d1">
+      <div class="step-num">01 / Escanear</div>
+      <div class="step-icon si-p"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="15" y="15" width="2" height="2"/><rect x="19" y="15" width="2" height="2"/><rect x="15" y="19" width="2" height="2"/><rect x="19" y="19" width="2" height="2"/></svg></div>
+      <div class="step-h">Escanea el QR en la mesa</div>
+      <div class="step-p">Cada mesa tiene su código único. El cliente lo escanea con la cámara del celular — sin descargar ninguna app. Funciona en cualquier dispositivo.</div>
+    </div>
+    <div class="step reveal d2">
+      <div class="step-num">02 / Ver cuenta</div>
+      <div class="step-icon si-c"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="step-h">Ve su cuenta al instante</div>
+      <div class="step-p">La factura aparece en tiempo real con todos los items, subtotales e impuestos ISV. Puede elegir cómo quiere pagar entre 4 opciones.</div>
+    </div>
+    <div class="step reveal d3">
+      <div class="step-num">03 / Pagar</div>
+      <div class="step-icon si-g"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" stroke-linecap="round"/></svg></div>
+      <div class="step-h">Paga con tarjeta en segundos</div>
+      <div class="step-p">Visa o Mastercard, débito o crédito. Ingresa DNI o Pasaporte, datos de tarjeta y listo. Autenticación 3D Secure. Recibo digital inmediato.</div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="features">
+  <div class="feat-inner">
+    <div class="feat-top reveal">
+      <div><div class="label">Beneficios</div><div class="section-h">Todo lo que tu<br>restaurante necesita.</div></div>
+      <div class="section-sub">Snapay no es solo un método de pago. Es un sistema completo que transforma cada etapa del cobro — desde que el cliente pide la cuenta hasta que se va.</div>
+    </div>
+    <div class="feat-grid reveal">
+      <div class="fc"><div class="fc-tag">Rotación de mesas</div><div class="fc-h">Mesas que rotan más rápido</div><div class="fc-p">Sin esperar al mesero, sin vuelto, sin firma. El pago baja de 12 minutos a menos de 2. Más mesas servidas, más ingresos por noche.</div><div class="fc-big">16 min</div><div class="fc-big-sub">ahorrados por mesa cada noche</div></div>
+      <div class="fc dark"><div class="fc-tag">Propinas digitales</div><div class="fc-h">Propinas que se triplican</div><div class="fc-p">El flujo sugiere propinas de 10%, 15%, 20% o monto personalizado de forma natural. Las propinas digitales son consistentemente más altas.</div><div class="fc-big">3×</div><div class="fc-big-sub">más propinas en promedio</div></div>
+      <div class="fc"><div class="fc-tag">División de cuentas</div><div class="fc-h">Cada quien paga lo suyo</div><div class="fc-p">Desde pagar la factura completa hasta seleccionar exactamente lo que consumiste. 4 opciones de pago para cada comensal.</div><div class="fc-big">4</div><div class="fc-big-sub">opciones de pago disponibles</div></div>
+      <div class="fc"><div class="fc-tag">Dashboard en tiempo real</div><div class="fc-h">Control total del restaurante</div><div class="fc-p">Ve cada mesa, cada pago y cada transacción en tiempo real. Reportes automáticos diarios, semanales y mensuales. Todo digital.</div><div class="fc-big">L 0</div><div class="fc-big-sub">costo de instalación para el restaurante</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="options" class="options-section">
+  <div class="options-inner">
+    <div class="dual-phones reveal">
+      <div class="mini-phone">
+        <div class="mp-h"><span class="mp-hn">Alamitos · Mesa 23</span><div class="mp-hd"><span></span><span></span><span></span></div></div>
+        <div class="mp-body">
+          <div class="mp-opt active"><div class="mp-oi moi1"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" stroke-linecap="round"/></svg></div><div><div class="mp-oname">Factura completa</div><div class="mp-osub">Paga todos los artículos</div></div></div>
+          <div class="mp-opt"><div class="mp-oi moi2"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="mp-oname">Dividir equitativamente</div><div class="mp-osub">Entre todos los comensales</div></div></div>
+          <div class="mp-opt"><div class="mp-oi moi3"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="mp-oname">Seleccionar ítems</div><div class="mp-osub">Elige artículos específicos</div></div></div>
+          <div class="mp-opt"><div class="mp-oi moi4"><svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="mp-oname">Monto personalizado</div><div class="mp-osub">Paga una cantidad específica</div></div></div>
+          <button class="mp-btn">Completar Pago</button>
+        </div>
+      </div>
+      <div class="mini-phone">
+        <div class="mp-h success"><span class="mp-hn">Alamitos · Mesa 23</span><div class="mp-hd"><span></span><span></span><span></span></div></div>
+        <div class="mp-body">
+          <div class="mp-success-body">
+            <div class="mp-check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="mp-st">¡Pago Completo!</div>
+            <div class="mp-ss">Transacción Aprobada</div>
+          </div>
+          <div class="mp-receipt">
+            <div class="mp-rr"><span>Restaurante Alamitos</span></div>
+            <div class="mp-rr"><span>Mesa 23 · Julio 3, 2026</span></div>
+            <div style="height:8px"></div>
+            <div class="mp-rr"><span>Subtotal</span><span>L1,030.00</span></div>
+            <div class="mp-rr"><span>Impuestos (15%)</span><span>L85.49</span></div>
+            <div class="mp-rr"><span>Propina</span><span style="color:var(--green);font-weight:700">L30.99</span></div>
+            <div class="mp-rt"><span>Total Pagado</span><span>L1,146.48</span></div>
+          </div>
+          <button class="mp-dl">Descargar Recibo</button>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="label">Métodos de pago</div>
+      <div class="section-h">4 opciones.<br>Todos ganan.</div>
+      <div class="section-sub" style="margin-bottom:2.5rem">Desde pagar la cuenta completa hasta seleccionar exactamente lo que consumiste. Snapay se adapta a cómo quiere pagar cada comensal.</div>
+      <div class="options-list">
+        <div class="opt-row"><div class="opt-icon oi1"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" stroke-linecap="round"/></svg></div><div><div class="opt-name">Pagar factura completa</div><div class="opt-sub">Un solo cobro, cero complicaciones</div></div></div>
+        <div class="opt-row"><div class="opt-icon oi2"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="opt-name">Dividir equitativamente</div><div class="opt-sub">Cada quien paga su parte exacta</div></div></div>
+        <div class="opt-row"><div class="opt-icon oi3"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="opt-name">Seleccionar ítems a pagar</div><div class="opt-sub">Paga exactamente lo que pediste</div></div></div>
+        <div class="opt-row"><div class="opt-icon oi4"><svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="opt-name">Monto personalizado</div><div class="opt-sub">Abona lo que quieras, el resto queda activo</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing">
+  <div class="pricing-head reveal"><div class="label">Tarifas</div><div class="section-h">Transparente. Sin sorpresas.</div><div class="section-sub">Cuota fija mensual por sucursal. Sin comisión por transacción. Sin costo de instalación. Sin contratos de largo plazo.</div></div>
+  <div class="tiers reveal">
+    <div class="tier"><div class="tier-name">Nivel 1</div><div class="tier-range">0 – 100 transacciones / mes</div><div class="tier-price">L 1,300</div><div class="tier-period">por sucursal / mes</div><ul class="tier-list"><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>QR por mesa incluido</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Dashboard básico</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Soporte por WhatsApp</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Instalación sin costo</li></ul></div>
+    <div class="tier popular"><div class="tier-pop">Más popular</div><div class="tier-name">Nivel 2</div><div class="tier-range">101 – 299 transacciones / mes</div><div class="tier-price">L 3,900</div><div class="tier-period">por sucursal / mes</div><ul class="tier-list"><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Todo de Nivel 1</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>División de cuentas</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Propinas digitales</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Reportes avanzados</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Soporte prioritario</li></ul></div>
+    <div class="tier"><div class="tier-name">Nivel 3</div><div class="tier-range">300 – 900 transacciones / mes</div><div class="tier-price">L 7,800</div><div class="tier-period">por sucursal / mes</div><ul class="tier-list"><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Todo de Nivel 2</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Integración POS</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Multi-dispositivo</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Analítica avanzada</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Account manager</li></ul></div>
+    <div class="tier"><div class="tier-name">Nivel 4</div><div class="tier-range">901 – 1,100 transacciones / mes</div><div class="tier-price">L 14,300</div><div class="tier-period">por sucursal / mes</div><ul class="tier-list"><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Todo de Nivel 3</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>API completa</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Integración bancaria</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>SLA garantizado</li><li><div class="tier-ck"><svg viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Soporte 24/7</li></ul></div>
+  </div>
+</section>
+
+<section id="pilot" class="pilot">
+  <div class="pilot-card reveal">
+    <div class="pilot-left">
+      <div>
+        <div class="pilot-ey">Piloto gratuito · Sin compromiso</div>
+        <div class="pilot-h">Arranca sin costo.<br>Ve los resultados primero.</div>
+        <div class="pilot-p">Un piloto completamente gratuito para el primer mes. Instalamos todo, capacitamos a tu equipo y acompañamos el proceso. Tu restaurante no cambia nada de lo que ya usa.</div>
+      </div>
+      <a href="https://calendly.com/inversionescyg2024/30min" target="_blank" class="pilot-cta">Solicitar piloto gratis <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="pilot-right">
+      <div class="pi"><div class="pi-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="pi-h">Instalación en menos de 1 hora</div><div class="pi-p">Instalamos los QR en las mesas y configuramos el sistema. Tu equipo no necesita hacer nada técnico.</div></div></div>
+      <div class="pi"><div class="pi-ico"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="pi-h">Capacitación para tu equipo</div><div class="pi-p">Entrenamos a los meseros en 30 minutos. El flujo es tan sencillo que no se necesita más.</div></div></div>
+      <div class="pi"><div class="pi-ico"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="pi-h">Resultados desde la primera semana</div><div class="pi-p">Verás en tiempo real cuánto se cobra, las propinas generadas y el tiempo de pago por mesa.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COROSDEV BADGE -->
+<div style="background:var(--white);border-top:1px solid var(--border);padding:1.75rem 3rem;display:flex;align-items:center;justify-content:center">
+  <a href="https://corosdev.com" target="_blank" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:10px 20px 10px 10px;transition:all 0.2s" onmouseover="this.style.borderColor='rgba(79,63,232,0.3)';this.style.boxShadow='0 4px 16px rgba(79,63,232,0.1)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+
+    <!-- CorosDev logo: reemplaza el src con la ruta a tu PNG -->
+    <img
+      src="assets/Corosdev.png"
+      alt="CorosDev"
+      width="34"
+      height="34"
+      style="border-radius:9px;object-fit:contain;flex-shrink:0;display:block"
+    />
+
+    <!-- Text -->
+    <div style="display:flex;flex-direction:column;gap:1px">
+      <span style="font-size:0.6rem;color:var(--ink4);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;line-height:1;font-family:var(--font)">Un desarrollo de</span>
+      <span style="font-size:0.95rem;font-weight:800;color:var(--ink);letter-spacing:-0.03em;line-height:1.2;font-family:var(--font)">Coros<span style="color:#06B6D4">Dev</span></span>
+    </div>
+
+    <div style="width:1px;height:24px;background:var(--border)"></div>
+    <span style="font-size:0.72rem;color:var(--ink4);font-weight:400;font-family:var(--font)">corosdev.com</span>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-logo">Sna<span>pay</span>.ai</div>
+  <div class="footer-links"><a href="#">Privacidad</a><a href="#">Términos</a><a href="mailto:info@corosdev.com">info@corosdev.com</a></div>
+  <div class="footer-copy">© 2026 Snapay · CorosDev · Honduras</div>
+</footer>
+
+<script>
+const els=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:0.08});
+els.forEach(e=>obs.observe(e));
+</script>
+</body>
+</html>
