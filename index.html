@@ -35,8 +35,7 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(248,248,251,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-icon{width:36px;height:36px;background:var(--purple);border-radius:10px;display:flex;align-items:center;justify-content:center}
-.logo-icon svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
+.logo-img{height:36px;width:36px;object-fit:cover;border-radius:10px;display:block;flex-shrink:0}
 .logo-text{font-weight:800;font-size:1.1rem;color:var(--ink);letter-spacing:-0.03em}
 .logo-text span{color:var(--purple)}
 nav ul{list-style:none;display:flex;gap:2.5rem}
@@ -224,6 +223,11 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem
 .footer-links a{font-size:0.8rem;color:var(--ink4);text-decoration:none;font-weight:500;transition:color 0.15s}
 .footer-links a:hover{color:var(--ink3)}
 .footer-copy{font-size:0.72rem;color:var(--ink4)}
+/* VIDEO */
+.video-section{padding:7rem 3rem;background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.video-inner{max-width:860px;margin:0 auto}
+.video-wrapper{position:relative;padding-bottom:56.25%;height:0;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
+.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.65s,transform 0.65s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}
@@ -242,7 +246,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem
   .feat-grid{grid-template-columns:1fr}
   .tiers{grid-template-columns:1fr 1fr}
   .pilot-card{grid-template-columns:1fr}
-  .how,.features,.pricing,.options-section,.pilot{padding:5rem 1.5rem}
+  .how,.features,.pricing,.options-section,.pilot,.video-section{padding:5rem 1.5rem}
   .logos{padding:2rem 1.5rem}
   footer{padding:2rem 1.5rem}
 }
@@ -255,9 +259,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem
 
 <nav>
   <a href="#" class="logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="15.5" y="15.5" width="2" height="2" rx="0.5"/><rect x="19.5" y="15.5" width="2" height="2" rx="0.5"/><rect x="15.5" y="19.5" width="2" height="2" rx="0.5"/><rect x="19.5" y="19.5" width="2" height="2" rx="0.5"/></svg>
-    </div>
+    <img src="assets/LogoSnapay.png" alt="Snapay" class="logo-img">
     <span class="logo-text">Sna<span>pay</span></span>
   </a>
   <ul>
@@ -347,6 +349,24 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem
       <div class="step-icon si-g"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" stroke-linecap="round"/></svg></div>
       <div class="step-h">Paga con tarjeta en segundos</div>
       <div class="step-p">Visa o Mastercard, débito o crédito. Ingresa DNI o Pasaporte, datos de tarjeta y listo. Autenticación 3D Secure. Recibo digital inmediato.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SECTION -->
+<section class="video-section">
+  <div class="video-inner reveal">
+    <div class="label" style="text-align:center">Video presentación</div>
+    <div class="section-h" style="text-align:center;margin-bottom:0.75rem">Snapay en acción</div>
+    <p class="section-sub" style="text-align:center;margin:0 auto 2.5rem">Mira cómo Snapay transforma el cobro en restaurantes en menos de 2 minutos.</p>
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/JziFRbj8LCc"
+        title="Presentación Snapay"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 </section>
