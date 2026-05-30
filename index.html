@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Snapay — Pagos sin fricción para restaurantes</title>
+<link rel="icon" type="image/png" sizes="48x48" href="assets/Snapay_Favicon.png">
+<link rel="shortcut icon" type="image/png" href="assets/Snapay_Favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/Snapay_apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -210,12 +213,28 @@ h1 .hi{color:var(--purple)}
 .pilot-cta:hover{background:var(--bg2);transform:translateY(-2px)}
 .pilot-cta svg{width:16px;height:16px;stroke:var(--purple);stroke-width:2.5;fill:none;transition:transform 0.2s}
 .pilot-cta:hover svg{transform:translateX(3px)}
-.pilot-right{padding:3.5rem 3rem;background:var(--bg);display:flex;flex-direction:column;gap:2rem;justify-content:center}
-.pi{display:flex;gap:1.25rem;align-items:flex-start}
+.pilot-right{padding:1.5rem;display:flex;flex-direction:column;gap:1rem;justify-content:center}
+.pi{display:flex;gap:1rem;align-items:flex-start}
 .pi-ico{width:42px;height:42px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .pi-ico svg{width:18px;height:18px;stroke:var(--purple);stroke-width:1.75;fill:none}
-.pi-h{font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:3px;letter-spacing:-0.02em}
-.pi-p{font-size:0.82rem;color:var(--ink3);line-height:1.65}
+.pi-h{font-size:0.92rem;font-weight:800;color:var(--ink);margin-bottom:4px;letter-spacing:-0.02em}
+.pi-p{font-size:0.82rem;color:var(--ink3);line-height:1.5}
+
+/* Panel lateral para el formulario de interés */
+.cta-panel{background:var(--white);padding:1.25rem;border-radius:24px;color:var(--ink);box-shadow:0 18px 40px rgba(15,23,42,0.06);width:100%;max-width:420px}
+.cta-panel h3{margin:0 0 0.25rem;font-size:1.15rem;color:var(--ink);letter-spacing:-0.02em}
+.cta-panel p.lead-sub{margin:0 0 1rem;color:var(--ink3);font-size:0.95rem;line-height:1.5}
+.cta-form{display:grid;gap:0.75rem}
+.form-field{display:flex;flex-direction:column;gap:0.35rem}
+.form-field label{font-size:0.82rem;font-weight:700;color:var(--ink2)}
+.form-field input,.form-field select,.form-field textarea{padding:0.95rem 1rem;border:1px solid var(--border2);border-radius:16px;background:var(--white);color:var(--ink);font-size:0.95rem;outline:none;transition:all 0.2s}
+.form-field select{color:var(--ink);background:var(--white)}
+.form-field option{color:var(--ink);background:var(--white)}
+.form-field input::placeholder,.form-field textarea::placeholder{color:var(--ink4)}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,0.12)}
+.pilot-cta.lead-submit{background:linear-gradient(135deg,var(--green),#10B981);color:#fff;border:none;padding:0.95rem;border-radius:16px;font-weight:800;width:100%;display:inline-flex;align-items:center;justify-content:center}
+.form-note{font-size:0.82rem;color:var(--ink4);margin:0}
+.form-status{font-size:0.92rem;font-weight:700;color:var(--green);min-height:1.2rem;margin-top:0.5rem}
 footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .footer-logo{font-weight:800;font-size:0.95rem;color:var(--ink);letter-spacing:-0.03em}
 .footer-logo span{color:var(--purple)}
@@ -458,6 +477,41 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem
       <div class="pi"><div class="pi-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="pi-h">Instalación en menos de 1 hora</div><div class="pi-p">Instalamos los QR en las mesas y configuramos el sistema. Tu equipo no necesita hacer nada técnico.</div></div></div>
       <div class="pi"><div class="pi-ico"><svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="pi-h">Capacitación para tu equipo</div><div class="pi-p">Entrenamos a los meseros en 30 minutos. El flujo es tan sencillo que no se necesita más.</div></div></div>
       <div class="pi"><div class="pi-ico"><svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="pi-h">Resultados desde la primera semana</div><div class="pi-p">Verás en tiempo real cuánto se cobra, las propinas generadas y el tiempo de pago por mesa.</div></div></div>
+
+      <div class="cta-panel">
+        <h3>¿Interés en un piloto?</h3>
+        <p class="lead-sub">Déjanos tus datos y nos pondremos en contacto.</p>
+        <form id="cta-form" class="cta-form" onsubmit="submitCtaForm(event)">
+          <div class="form-field">
+            <label for="NOMBRE">Nombre completo</label>
+            <input id="NOMBRE" name="NOMBRE" type="text" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-field">
+            <label for="EMAIL">Correo electrónico</label>
+            <input id="EMAIL" name="EMAIL" type="email" placeholder="ejemplo@correo.com" required>
+          </div>
+          <div class="form-field">
+            <label for="SMS">Teléfono</label>
+            <input id="SMS" name="SMS" type="tel" placeholder="+504 1234 5678" required>
+          </div>
+          <div class="form-field">
+            <label for="MULT_SLCT">Me interesa como...</label>
+            <select id="MULT_SLCT" name="MULT_SLCT" required>
+              <option value="">Selecciona una opción</option>
+              <option value="1">Tester de Acceso Anticipado / Usuario</option>
+              <option value="2">Inversor de Capital</option>
+              <option value="3">Socio Estratégico / Cliente</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="MESSAGE">Mensaje (opcional)</label>
+            <textarea id="MESSAGE" name="MESSAGE" rows="3" placeholder="Cuéntanos algo... (opcional)"></textarea>
+          </div>
+          <button type="submit" class="pilot-cta lead-submit">Enviar Solicitud</button>
+          <p class="form-note">Tus datos serán enviados a nuestro CRM (Brevo) de forma segura.</p>
+          <p class="form-status" id="cta-form-status" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -496,6 +550,89 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:2.5rem
 const els=document.querySelectorAll('.reveal');
 const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:0.08});
 els.forEach(e=>obs.observe(e));
+
+/*
+  Configuración del endpoint del servidor proxy (seguro).
+  NOTA: La clave de API se mantiene en el servidor (.env), NO en el frontend.
+  El frontend envía a /api/leads en localhost, y el servidor lo reenvía a Brevo de forma segura.
+*/
+const API_PROXY_URL = 'http://localhost:3000/api/leads'; // Endpoint local del servidor proxy
+
+/**
+ * submitCtaForm: maneja el envío del formulario de interés y lo manda a Brevo.
+ * @param {Event} event  - evento submit del formulario
+ */
+async function submitCtaForm(event){
+  event.preventDefault(); // Previene el comportamiento por defecto del formulario
+
+  // Referencias a elementos y estado
+  const form = document.getElementById('cta-form'); // form DOM
+  const statusEl = document.getElementById('cta-form-status'); // elemento para mensajes al usuario
+
+  // Capturamos los valores de los campos Brevo (nombres exactos requeridos)
+  const NOMBRE = form.elements['NOMBRE'].value.trim(); // Nombre completo (requerido)
+  const EMAIL = form.elements['EMAIL'].value.trim();   // Correo (requerido)
+  const SMS = form.elements['SMS'].value.trim();       // Teléfono (requerido)
+  const MULT_SLCT = parseInt(form.elements['MULT_SLCT'].value, 10); // Select numérico (requerido)
+  const MESSAGE = form.elements['MESSAGE'].value.trim(); // Mensaje (opcional)
+
+  // Validaciones básicas
+  if(!NOMBRE || !EMAIL || !SMS || Number.isNaN(MULT_SLCT)){
+    statusEl.textContent = 'Por favor completa los campos obligatorios.'; // feedback inmediato
+    return;
+  }
+
+  // Validación flexible de teléfono: acepta +, espacios, guiones, paréntesis (formatos internacionales)
+  // Extrae solo dígitos para contar (debe tener al menos 7 dígitos)
+  const digitsOnly = SMS.replace(/\D/g, '');
+  if(digitsOnly.length < 7){
+    statusEl.textContent = 'Introduce un teléfono válido (mínimo 7 dígitos).';
+    return;
+  }
+
+  // Construimos el objeto que enviaremos al servidor proxy.
+  // El servidor lo reenviará a Brevo con la estructura correcta.
+  const dataToSend = {
+    NOMBRE: NOMBRE,
+    EMAIL: EMAIL,
+    SMS: SMS,
+    MULT_SLCT: MULT_SLCT,
+    MESSAGE: MESSAGE || '',
+    LIST_ID: 2 // Reemplaza 12345 por el ID real de lista Snapay si es necesario
+  };
+
+  // Mensaje al usuario mientras procesamos
+  statusEl.textContent = 'Enviando...';
+
+  try{
+    // Envío al servidor proxy (que reenvía a Brevo de forma segura con la API key)
+    const res = await fetch(API_PROXY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataToSend)
+    });
+
+    // Leer respuesta del servidor
+    const responseData = await res.json();
+
+    if(!res.ok){
+      // Error del servidor
+      console.error('Error del proxy:', res.status, responseData);
+      statusEl.textContent = 'Error al enviar. Por favor, intenta nuevamente.';
+      return;
+    }
+
+    // Éxito: limpiamos y mostramos confirmación
+    statusEl.textContent = '¡Gracias! Registramos tu interés y te contactaremos pronto.';
+    form.reset();
+  }catch(err){
+    // Manejo de errores de red o conexión
+    console.error(err);
+    statusEl.textContent = 'No fue posible enviar el formulario. Verifica tu conexión.';
+  }
+}
 </script>
 </body>
 </html>
